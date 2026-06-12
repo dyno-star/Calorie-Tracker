@@ -1404,6 +1404,23 @@ header {
   max-width: 280px;
 }
 
+.camera-error-close {
+  margin-top: 16px;
+  padding: 10px 24px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+
+.camera-error-close:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
 /* ── TOAST ───────────────────────────────────────────────────── */
 .toast {
   position: fixed;

@@ -12,7 +12,7 @@ export default function CameraModal({ onCapture, onClose }) {
     async function startCamera() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+          video: { facingMode: { ideal: 'environment' } },
           audio: false,
         })
         if (cancelled) {
@@ -20,14 +20,27 @@ export default function CameraModal({ onCapture, onClose }) {
           return
         }
         streamRef.current = stream
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream
+        const video = videoRef.current
+        if (video) {
+          video.srcObject = stream
+          try {
+            await video.play()
+          } catch {
+            // play() rejects if the component unmounts mid-start; safe to ignore
+          }
+          if (!cancelled) setReady(true)
         }
       } catch (e) {
-        if (!cancelled) setError(e.name === 'NotAllowedError'
-          ? 'Camera access was denied. Please allow camera permissions and try again.'
-          : (e.message || 'Could not access camera.')
-        )
+        if (cancelled) return
+        if (e.name === 'NotAllowedError' || e.name === 'PermissionDeniedError') {
+          setError('Camera access was denied. Please allow camera permissions in your browser and try again.')
+        } else if (e.name === 'NotFoundError' || e.name === 'DevicesNotFoundError') {
+          setError('No camera was found on this device.')
+        } else if (e.name === 'NotReadableError' || e.name === 'TrackStartError') {
+          setError('Camera is already in use by another application.')
+        } else {
+          setError(e.message || 'Could not start camera.')
+        }
       }
     }
 
@@ -36,14 +49,14 @@ export default function CameraModal({ onCapture, onClose }) {
     return () => {
       cancelled = true
       streamRef.current?.getTracks().forEach(t => t.stop())
+      streamRef.current = null
+      if (videoRef.current) videoRef.current.srcObject = null
     }
   }, [])
 
-  const handleVideoReady = () => setReady(true)
-
   const capture = () => {
     const video = videoRef.current
-    if (!video || !ready) return
+    if (!video || !video.videoWidth) return
 
     const canvas = document.createElement('canvas')
     canvas.width = video.videoWidth
@@ -70,6 +83,7 @@ export default function CameraModal({ onCapture, onClose }) {
           <div className="camera-error">
             <div className="camera-error-icon">📷</div>
             <div className="camera-error-msg">{error}</div>
+            <button className="camera-error-close" onClick={onClose}>Close</button>
           </div>
         ) : (
           <>
@@ -79,7 +93,6 @@ export default function CameraModal({ onCapture, onClose }) {
               playsInline
               muted
               className="camera-video"
-              onCanPlay={handleVideoReady}
             />
             {!ready && (
               <div className="camera-starting">
@@ -88,12 +101,8 @@ export default function CameraModal({ onCapture, onClose }) {
               </div>
             )}
             <div className="camera-controls">
-              <div className="camera-hint">Tap the button to capture your meal</div>
-              <button
-                className={`camera-shutter${ready ? '' : ' disabled'}`}
-                onClick={capture}
-                disabled={!ready}
-              >
+              <div className="camera-hint">Point at your meal and tap to capture</div>
+              <button className="camera-shutter" onClick={capture}>
                 <div className="camera-shutter-inner" />
               </button>
             </div>
