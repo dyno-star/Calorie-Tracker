@@ -1,5 +1,9 @@
 import { useState } from 'react'
+<<<<<<< HEAD
 import CameraModal from './CameraModal'
+=======
+import CameraCapture from './CameraCapture'
+>>>>>>> 15c6e0a (Camera Changes)
 
 const CHIPS = [
   { label: '🍌 Banana', value: 'banana' },
@@ -51,16 +55,23 @@ export default function LogPanel({
         </div>
 
         <div className="photo-btns">
+<<<<<<< HEAD
           {/* Opens live camera via getUserMedia */}
           <button className="photo-btn" onClick={() => setShowCamera(true)}>
+=======
+          <button type="button" className="photo-btn" onClick={() => setShowCamera(true)}>
+>>>>>>> 15c6e0a (Camera Changes)
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
               <circle cx="12" cy="13" r="4" />
             </svg>
             Take Photo
           </button>
+<<<<<<< HEAD
 
           {/* File picker for existing images */}
+=======
+>>>>>>> 15c6e0a (Camera Changes)
           <label className="photo-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -77,6 +88,16 @@ export default function LogPanel({
           </label>
         </div>
 
+<<<<<<< HEAD
+=======
+        <CameraCapture
+          open={showCamera}
+          onClose={() => setShowCamera(false)}
+          onCapture={onImageFile}
+        />
+
+        {/* Image preview */}
+>>>>>>> 15c6e0a (Camera Changes)
         {imageData && (
           <div className="img-preview-wrap">
             <img src={imageData.url} alt="food" />
