@@ -31,6 +31,7 @@ export default function LogPanel({
   entries, foodInput, setFoodInput,
   imageData, pendingEntry, isAnalyzing,
   onImageFile, onClearImage, onAnalyze, onConfirmLog, onDismissResult, onDeleteEntry,
+  water, waterGoal, onAddWater, onRemoveWater,
 }) {
   const [showCamera, setShowCamera] = useState(false)
   const groups = groupEntries(entries)
@@ -141,6 +142,25 @@ export default function LogPanel({
             </svg>
             {isAnalyzing ? 'Analyzing…' : 'Analyze'}
           </button>
+        </div>
+      </div>
+
+      <div className="water-card">
+        <div className="water-header">
+          <span className="water-title">💧 Water Intake</span>
+          <span className="water-count">{water} / {waterGoal} glasses</span>
+        </div>
+        <div className="water-track">
+          {Array.from({ length: waterGoal }).map((_, i) => (
+            <div key={i} className={`water-drop${i < water ? ' filled' : ''}`}>💧</div>
+          ))}
+        </div>
+        <div className="water-controls">
+          <button className="water-btn minus" onClick={onRemoveWater} disabled={water === 0}>−</button>
+          <span className="water-label">
+            {water >= waterGoal ? '🎉 Goal reached!' : `${waterGoal - water} more to go`}
+          </span>
+          <button className="water-btn plus" onClick={onAddWater}>+</button>
         </div>
       </div>
 

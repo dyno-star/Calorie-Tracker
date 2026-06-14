@@ -1444,6 +1444,102 @@ header {
   transform: translateX(-50%) translateY(0);
 }
 
+/* ── WATER TRACKER ─────────────────────────────────────────── */
+.water-card {
+  background: var(--warm-white);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(196,184,154,0.3);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.water-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.water-title {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--earth);
+}
+
+.water-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--bark);
+}
+
+.water-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+  min-height: 28px;
+}
+
+.water-drop {
+  font-size: 20px;
+  opacity: 0.2;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.water-drop.filled {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.water-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.water-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.water-btn.plus {
+  background: var(--sage);
+  color: white;
+}
+
+.water-btn.minus {
+  background: rgba(196,184,154,0.3);
+  color: var(--bark);
+}
+
+.water-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.water-btn:not(:disabled):active {
+  transform: scale(0.92);
+}
+
+.water-label {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  color: var(--bark);
+}
+
 /* ── HISTORY PANEL ─────────────────────────────────────────── */
 .history-summary-row {
   display: flex;

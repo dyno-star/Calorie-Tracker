@@ -28,6 +28,20 @@ const todayKey = () => new Date().toISOString().slice(0, 10)
 const DEFAULT_GOALS = { cal: 2000, p: 150, c: 250, f: 65 }
 
 export default function App() {
+  const [water, setWater] = useState(() => {
+    try {
+      const s = localStorage.getItem('nourish_water_' + todayKey())
+      return s ? parseInt(s) : 0
+    } catch { return 0 }
+  })
+
+  const [waterGoal] = useState(() => {
+    try {
+      const s = localStorage.getItem('nourish_water_goal')
+      return s ? parseInt(s) : 8
+    } catch { return 8 }
+  })
+
   const [goals, setGoalsState] = useState(() => {
     try {
       const s = localStorage.getItem('nourish_goals')
@@ -53,6 +67,13 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('nourish_entries_' + todayKey(), JSON.stringify(entries))
   }, [entries])
+
+  useEffect(() => {
+    localStorage.setItem('nourish_water_' + todayKey(), String(water))
+  }, [water])
+
+  const addWater = useCallback(() => setWater(w => w + 1), [])
+  const removeWater = useCallback(() => setWater(w => Math.max(0, w - 1)), [])
 
   const showToast = useCallback((message) => {
     setToast({ message, visible: true })
@@ -234,6 +255,10 @@ For photos: identify all visible food items, estimate reasonable portion sizes, 
             onConfirmLog={confirmLog}
             onDismissResult={dismissResult}
             onDeleteEntry={deleteEntry}
+            water={water}
+            waterGoal={waterGoal}
+            onAddWater={addWater}
+            onRemoveWater={removeWater}
           />
         )}
         {activeTab === 'summary' && (
