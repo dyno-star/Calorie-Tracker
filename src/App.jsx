@@ -3,6 +3,7 @@ import Header from './components/Header'
 import LogPanel from './components/LogPanel'
 import SummaryPanel from './components/SummaryPanel'
 import GoalsPanel from './components/GoalsPanel'
+import HistoryPanel from './components/HistoryPanel'
 import Toast from './components/Toast'
 
 const FOOD_EMOJIS = {
@@ -205,6 +206,7 @@ For photos: identify all visible food items, estimate reasonable portion sizes, 
         {[
           { id: 'log', label: 'Log Food' },
           { id: 'summary', label: 'Summary' },
+          { id: 'history', label: 'History' },
           { id: 'goals', label: 'Goals' },
         ].map(tab => (
           <button
@@ -236,6 +238,9 @@ For photos: identify all visible food items, estimate reasonable portion sizes, 
         )}
         {activeTab === 'summary' && (
           <SummaryPanel entries={entries} totals={totals} goals={goals} />
+        )}
+        {activeTab === 'history' && (
+          <HistoryPanel goals={goals} />
         )}
         {activeTab === 'goals' && (
           <GoalsPanel
