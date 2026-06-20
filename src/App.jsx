@@ -13,7 +13,14 @@ const FOOD_EMOJIS = {
   salad: '🥗', soup: '🍲', pizza: '🍕', burger: '🍔', sandwich: '🥪', wrap: '🌯',
   taco: '🌮', sushi: '🍣', cake: '🎂', cookie: '🍪', chocolate: '🍫', ice: '🍦',
   dessert: '🍮', snack: '🥜', smoothie: '🥤', protein: '💪', oat: '🥣',
-  banana: '🍌', apple: '🍎',
+  banana: '🍌', apple: '🍎', avocado: '🥑', tomato: '🍅', carrot: '🥕',
+  broccoli: '🥦', corn: '🌽', potato: '🥔', pepper: '🌶️', mushroom: '🍄',
+  steak: '🥩', shrimp: '🍤', lobster: '🦞', bacon: '🥓', hotdog: '🌭',
+  waffle: '🧇', pancake: '🥞', donut: '🍩', muffin: '🧁', pretzel: '🥨',
+  grape: '🍇', watermelon: '🍉', strawberry: '🍓', lemon: '🍋', orange: '🍊',
+  pineapple: '🍍', mango: '🥭', peach: '🍑', cherry: '🍒', pear: '🍐',
+  noodle: '🍜', ramen: '🍜', curry: '🍛', bento: '🍱', dumpling: '🥟',
+  wine: '🍷', beer: '🍺', cocktail: '🍹', soda: '🥤', latte: '☕',
 }
 
 function getEmoji(name) {

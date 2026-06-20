@@ -6,6 +6,10 @@ const CHIPS = [
   { label: '☕ Coffee', value: 'coffee with milk' },
   { label: '🍗 Chicken', value: 'chicken breast 150g' },
   { label: '🥣 Oats', value: 'bowl of oatmeal' },
+  { label: '🥚 Eggs', value: '2 scrambled eggs' },
+  { label: '🍎 Apple', value: 'medium apple' },
+  { label: '🥑 Avocado', value: 'half an avocado' },
+  { label: '🍚 Rice', value: 'cup of white rice cooked' },
 ]
 
 function groupEntries(entries) {
